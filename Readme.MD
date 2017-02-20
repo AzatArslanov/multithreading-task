@@ -47,6 +47,19 @@ public class Task implements Delayed {
     }
 }
 ```
+В очередь задачи передаем так:
+```java
+public void add(LocalDateTime localDateTime, Callable callable) {
+        Task task = new Task(localDateTime, callable);
+        log.info("add new task in queue: {}", task);
+        try {
+            queue.put(task);
+        } catch (InterruptedException ignored) {
+            log.error("Queue throws interrupted exception", ignored);
+            throw new RuntimeException(ignored);
+        }
+    }
+```
 
 Непосредственно выполнением Callable будет заниматься Executors.newSingleThreadExecutor(), а загружать задачами его будет отдельный поток
 ```java

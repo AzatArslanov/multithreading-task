@@ -33,7 +33,7 @@ public class TaskService {
         try {
             queue.put(task);
         } catch (InterruptedException ignored) {
-            log.error("Queue is full", ignored);
+            log.error("Queue throws interrupted exception", ignored);
             throw new RuntimeException(ignored);
         }
     }
